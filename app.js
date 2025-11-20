@@ -1,4 +1,10 @@
 const express = require('express');
+
+const { searchRecords, exportVault } = require('./record');  
+searchRecords("Ali"); 
+exportVault();        
+
+
 const app = express();
 const PORT = 3000;
 
