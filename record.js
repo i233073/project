@@ -13,7 +13,7 @@ const vault = [
 const backupsDir = path.join(__dirname, "backups");
 if (!fs.existsSync(backupsDir)) fs.mkdirSync(backupsDir);
 
-// --------------------- Search Function ---------------------
+// --------------------- Search Records ---------------------
 function searchRecords(keyword) {
   const lower = keyword.toLowerCase();
   return vault.filter(record =>
@@ -22,7 +22,7 @@ function searchRecords(keyword) {
   );
 }
 
-// --------------------- Sorting Function ---------------------
+// --------------------- Sorting ---------------------
 function sortRecords(field, order = "asc") {
   const sorted = [...vault];
   sorted.sort((a, b) => {
@@ -58,7 +58,7 @@ function exportVault() {
   return filePath;
 }
 
-// --------------------- Automatic Backup ---------------------
+// --------------------- Backup ---------------------
 function backupVault() {
   const now = new Date();
   const fileName = `backup_${now.toISOString().replace(/[:.]/g, "-")}.json`;
@@ -67,7 +67,7 @@ function backupVault() {
   return filePath;
 }
 
-// --------------------- Add and Delete ---------------------
+// --------------------- Add/Delete ---------------------
 function addRecord(record) {
   vault.push(record);
   backupVault();
@@ -97,7 +97,7 @@ function viewVaultStatistics() {
   };
 }
 
-// --------------------- Correct Single Export ---------------------
+// --------------------- EXPORT CORRECTLY ---------------------
 module.exports = {
   vault,
   searchRecords,
