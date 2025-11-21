@@ -40,6 +40,23 @@ app.get('/search', (req, res) => {
     res.json(results);
 });
 
+// Sort Records
+// Example request: /sort?field=name&order=asc
+app.get('/sort', (req, res) => {
+    const { field, order } = req.query;
+
+    if (!field) return res.status(400).json({ error: "Please provide a field to sort by" });
+    if (field !== 'name' && field !== 'created') {
+        return res.status(400).json({ error: "Sort field must be either 'name' or 'created'" });
+    }
+
+    const sortOrder = order === 'desc' ? 'desc' : 'asc';
+    const sorted = sortRecords(field, sortOrder);
+
+    res.json(sorted);
+});
+
+
 // Export Data
 app.get('/export', (req, res) => {
     const filePath = exportVault();
