@@ -87,7 +87,13 @@ function viewVaultStatistics() {
   const longestName = vault.reduce((a, b) => a.name.length > b.name.length ? a : b);
   const earliest = new Date(Math.min(...vault.map(r => new Date(r.created))));
   const latest = new Date(Math.max(...vault.map(r => new Date(r.created))));
+ const exportFile = path.join(__dirname, "export.txt");
+  let lastModified = "Not available";
 
+  if (fs.existsSync(exportFile)) {
+    const stats = fs.statSync(exportFile);
+    lastModified = stats.mtime.toISOString().replace("T", " ").split(".")[0];
+  }
   return {
     totalRecords,
     longestName: longestName.name,
