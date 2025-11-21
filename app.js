@@ -63,6 +63,30 @@ app.get('/export', (req, res) => {
     res.json({ message: `Data exported successfully to ${filePath}` });
 });
 
+// Add a new record
+app.post('/record', (req, res) => {
+    const { id, name, created } = req.body;
+    if (!id || !name || !created) {
+        return res.status(400).json({ error: "Please provide id, name, and created date" });
+    }
+    addRecord({ id, name, created });
+    res.json({ message: `Record added and backup created for ID ${id}` });
+});
+
+// Delete a record
+app.delete('/record/:id', (req, res) => {
+    const { id } = req.params;
+    deleteRecord(Number(id));
+    res.json({ message: `Record with ID ${id} deleted and backup created` });
+});
+
+// Vault statistics
+app.get('/stats', (req, res) => {
+    const stats = viewVaultStatistics();
+    res.json(stats);
+});
+
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
