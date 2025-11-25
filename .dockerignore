@@ -1,6 +1,9 @@
 node_modules
 npm-debug.log
-.git
 .env
 backups
 export.txt
+.git
+.gitignore
+*.log
+

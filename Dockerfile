@@ -1,20 +1,26 @@
-# Use official Node 20 LTS image (Alpine version for lightweight)
+# Use official Node LTS slim image
 FROM node:20-alpine
 
-# Set working directory inside container
-WORKDIR /app
+# Set working directory
+WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json
+# Copy package files and install dependencies (production)
 COPY package*.json ./
+RUN npm ci --production
 
-# Install dependencies
-RUN npm install --production
-
-# Copy the rest of the application code
+# Copy app source
 COPY . .
 
-# Expose the port the app runs on
+# Ensure NODE_ENV=production
+ENV NODE_ENV=production
+
+# Expose port your app listens on
 EXPOSE 3000
 
-# Start the application
+# Use a non-root user (optional / good practice)
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+USER appuser
+
+# Start the app
 CMD ["node", "app.js"]
+
