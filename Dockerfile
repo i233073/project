@@ -1,26 +1,17 @@
-# Use official Node LTS slim image
-FROM node:20-alpine
+FROM node:18
 
-# Set working directory
 WORKDIR /usr/src/app
 
-# Copy package files and install dependencies (production)
 COPY package*.json ./
-RUN npm ci --production
 
-# Copy app source
+RUN npm install --production
+
 COPY . .
 
-# Ensure NODE_ENV=production
-ENV NODE_ENV=production
+# Create backups folder with correct permissions
+RUN mkdir -p /usr/src/app/backups && chmod -R 777 /usr/src/app/backups
 
-# Expose port your app listens on
 EXPOSE 3000
 
-# Use a non-root user (optional / good practice)
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
-USER appuser
-
-# Start the app
-CMD ["node", "app.js"]
+CMD ["npm", "start"]
 

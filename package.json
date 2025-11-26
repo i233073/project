@@ -1,9 +1,13 @@
 {
-    "name": "node-version-demo",
-    "version": "1.0.0",
-    "dependencies": {
-        "dotenv": "^17.2.3",
-        "express": "^4.21.2",
-        "mongoose": "^8.20.1"
-    }
+  "name": "node-version-demo",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^4.21.2",
+    "mongoose": "^8.20.1"
+  }
 }
+

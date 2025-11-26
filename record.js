@@ -44,7 +44,7 @@ async function sortRecords(field, order = "asc") {
 async function exportVault() {
   const vault = await Vault.find().exec();
   const now = new Date();
-  const filePath = path.join(__dirname, "export.txt");
+  const filePath = path.join(__dirname, "exports", "export.txt");
 
   let text = `Vault Export\n`;
   text += `Exported at: ${now}\n`;
@@ -100,7 +100,8 @@ async function viewVaultStatistics() {
   const latest = new Date(Math.max(...vault.map(r => r.created)));
 
   // Last modified based on export.txt file
-  const exportFile = path.join(__dirname, "export.txt");
+  const exportFile = path.join(__dirname, "exports", "export.txt");
+
   let lastModified = "Not available";
   if (fs.existsSync(exportFile)) {
     const stats = fs.statSync(exportFile);
